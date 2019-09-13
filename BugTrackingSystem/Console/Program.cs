@@ -7,11 +7,13 @@ using Library.Tasks;
 
 namespace Console
 {
+
     class Program
     {
         static void Main(string[] args)
         {
             ShowMenuInConsole();
+            AddNEWListForExample();
 
             bool MQuit = false;
 
@@ -33,7 +35,7 @@ namespace Console
                         System.Console.WriteLine("\t Insert the Task you want to add:");
 
                         AddTask();
-                       //HistoryTaskAdd();
+                        //HistoryTaskAdd();
                         ShowMenuInConsole();
 
                         break;
@@ -95,18 +97,18 @@ namespace Console
         {
             int _nomerTask;
             int index = 0;
+
+            System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
+            //show tasks
+            foreach (TechnicalDebt task in TechnicalDebtLogic.GetTechnicalDebts)
+            {
+                System.Console.WriteLine($"{index++,-8}{task.Id} [{task.NameTechDebt}]\t{task.PriorityTechDebt,-5}\t\t{task.ComplexityTechDebt,-10}\t{task.GetType()}");
+            }
+
             do
             {
                 System.Console.Write("\t Write Task №:");
             } while (!Int32.TryParse(System.Console.ReadLine(), out _nomerTask));
-
-
-            //System.Console.WriteLine($"[index] \t Id \t Name \t Prioritet \t ComplexityTask \t Type Task");
-            ////show tasks
-            //foreach (SomeTask task in SomeTaskLogicLayer.GetTasks)
-            //{
-            //    System.Console.WriteLine($"[{index++}] \t {task.Id} \t {task.Name} \t {task.Prioritet} \t {task.ComplexityTask} \t {task.TypeTask}");
-            //}
 
             //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
             AddTask(_nomerTask);
@@ -180,6 +182,10 @@ namespace Console
             System.Console.WriteLine("\t [4] History tasks");
             System.Console.WriteLine("\t [5] Clear console");
             System.Console.WriteLine("\t [6] Quit");
+        }
+        static void AddNEWListForExample()
+        {
+            TechnicalDebtLogic.AddTechnicalDebt(new TechnicalDebt("Hejlsberg", 5, 6));
         }
     }
 }
