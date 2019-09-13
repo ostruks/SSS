@@ -185,7 +185,7 @@ namespace Console
         }
         static void AddNEWListForExample()
         {
-            TechnicalDebtLogic.AddTechnicalDebt(new TechnicalDebt("Anders Hejlsberg", 5, 6));
+            TechnicalDebtLogic.AddTechnicalDebt(new TechnicalDebt("Hejlsberg", 5, 6));
         }
     }
 }
