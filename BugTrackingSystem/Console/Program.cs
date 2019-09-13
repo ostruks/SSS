@@ -88,6 +88,9 @@ namespace Console
             }
         }
 
+        /// <summary>
+        /// Add Task
+        /// </summary>
         private static void ChangeTask()
         {
             int _nomerTask;
@@ -111,6 +114,7 @@ namespace Console
 
         /// <summary>
         /// Add Task
+        /// if nomer not null void change task 
         /// </summary>
         private static void AddTask(int nomerTask = 0)
         {
