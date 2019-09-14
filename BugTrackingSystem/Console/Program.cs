@@ -19,6 +19,11 @@ namespace Console
 
             int ChoiceNomMenu = 0;
 
+            JobWithMenu(ref MQuit, ref ChoiceNomMenu);
+        }
+
+        private static void JobWithMenu(ref bool MQuit, ref int ChoiceNomMenu)
+        {
             while (!MQuit)
             {
 
@@ -102,7 +107,7 @@ namespace Console
             //show tasks
             foreach (TechnicalDebt task in TechnicalDebtLogic.GetTechnicalDebts)
             {
-                System.Console.WriteLine($"{index++,-8}{task.Id} [{task.NameTechDebt}]\t{task.PriorityTechDebt,-5}\t\t{task.ComplexityTechDebt,-10}\t{task.GetType()}");
+                System.Console.WriteLine($"{index++,-8}{task.Id} [{task.NameTechDebt}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType()}");
             }
 
             do
@@ -173,7 +178,7 @@ namespace Console
         /// <summary>
         /// 
         /// </summary>
-        private static void ShowMenuInConsole()
+        static void ShowMenuInConsole()
         {
             System.Console.WriteLine("\n Please choose one of the options:");
             System.Console.WriteLine("\t [1] Add task");
