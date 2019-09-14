@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library.Tasks;
+using Library;
 
 namespace Console
 {
-
     class Program
     {
         static void Main(string[] args)
         {
-            ShowMenuInConsole();
-            AddNEWListForExample();
+            Controller.ShowMenuInConsole();
+            Controller.AddNEWListForExample();
 
             bool MQuit = false;
-
             int ChoiceNomMenu = 0;
 
             JobWithMenu(ref MQuit, ref ChoiceNomMenu);
@@ -30,7 +24,7 @@ namespace Console
                 if (!Int32.TryParse(System.Console.ReadLine(), out ChoiceNomMenu) || !(ChoiceNomMenu >= 1 && ChoiceNomMenu <= 6))
                 {
                     System.Console.WriteLine("\t Invalid input. Try again:");
-                    ShowMenuInConsole();
+                    Controller.ShowMenuInConsole();
                     continue;
                 }
 
@@ -39,22 +33,22 @@ namespace Console
                     case 1:
                         System.Console.WriteLine("\t Insert the Task you want to add:");
 
-                        AddTask();
+                        Controller.AddTask();
                         //HistoryTaskAdd();
-                        ShowMenuInConsole();
+                        Controller.ShowMenuInConsole();
 
                         break;
                     case 2:
 
-                        ChangeTask();
+                        Controller.ChangeTask();
                         //HistoryTaskAdd();
-                        ShowMenuInConsole();
+                        Controller.ShowMenuInConsole();
 
                         break;
                     case 3:
 
                         //void Simulation
-                        ShowMenuInConsole();
+                        Controller.ShowMenuInConsole();
 
                         break;
                     case 4:
@@ -68,7 +62,7 @@ namespace Console
                             System.Console.WriteLine("\tError. Something went wrong!)", e.Message);
                         }
 
-                        ShowMenuInConsole();
+                        Controller.ShowMenuInConsole();
                         break;
                     case 5:
 
@@ -82,7 +76,7 @@ namespace Console
                             System.Console.WriteLine("\tError. Something went wrong!)", e.Message);
                         }
 
-                        ShowMenuInConsole();
+                        Controller.ShowMenuInConsole();
                         break;
                     case 6:
                         //void WriteHistoryTasks
@@ -93,30 +87,6 @@ namespace Console
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Add Task
-        /// </summary>
-        private static void ChangeTask()
-        {
-            int _nomerTask;
-            int index = 0;
-
-            System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
-            //show tasks
-            foreach (TechnicalDebt task in TechnicalDebtLogic.GetTechnicalDebts)
-            {
-                System.Console.WriteLine($"{index++,-8}{task.Id} [{task.NameTechDebt}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType()}");
-            }
-
-            do
-            {
-                System.Console.Write("\t Write Task №:");
-            } while (!Int32.TryParse(System.Console.ReadLine(), out _nomerTask));
-
-            //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
-            AddTask(_nomerTask);
         }
 
         /// <summary>
@@ -188,9 +158,9 @@ namespace Console
             System.Console.WriteLine("\t [5] Clear console");
             System.Console.WriteLine("\t [6] Quit");
         }
-        static void AddNEWListForExample()
-        {
-            TechnicalDebtLogic.AddTechnicalDebt(new TechnicalDebt("Hejlsberg", 5, 6));
-        }
+        //static void AddNEWListForExample()
+        //{
+        //    TechnicalDebtLogic.AddTechnicalDebt(new TechnicalDebt("Hejlsberg", 5, 6));
+        //}
     }
 }
