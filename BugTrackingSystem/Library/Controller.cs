@@ -1,4 +1,5 @@
-﻿using Library.Tasks;
+﻿using Library.Helpers;
+using Library.Tasks;
 using System;
 
 namespace Library
@@ -23,7 +24,7 @@ namespace Library
             do
             {
                 Console.Write("\t Write Task №:");
-            } while (!Int32.TryParse(System.Console.ReadLine(), out _nomerTask));
+            } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
 
             //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
             AddTask(_nomerTask);
@@ -38,7 +39,7 @@ namespace Library
             try
             {
                 string NameTask;
-                int TypeTask, ComplexityTask;
+                int TypeTask, ComplexityTask, Priority;
                 bool pr = false;
 
                 //Name
@@ -48,13 +49,27 @@ namespace Library
                 //Complexity
                 do
                 {
-                    System.Console.Write("\t Write Complexity Task(from 1 to 5):");
-                    pr = int.TryParse(System.Console.ReadLine(), out ComplexityTask);
+                    Console.Write("\t Write Complexity Task(from 1 to 5):");
+                    pr = int.TryParse(Console.ReadLine(), out ComplexityTask);
                     if (!(ComplexityTask >= 1 && ComplexityTask <= 5))
                     {
-                        System.Console.ForegroundColor = ConsoleColor.Red;
-                        System.Console.Write("\t Write Complexity only from 1 to 5\tInvalid input. Try again:\n");
-                        System.Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("\t Write Complexity only from 1 to 5\tInvalid input. Try again:\n");
+                        Console.ResetColor();
+                        pr = false;
+                    }
+                } while (!pr);
+
+                //Priority
+                do
+                {
+                    Console.Write("\t Write Priority Task(from 1 to 5):");
+                    pr = int.TryParse(Console.ReadLine(), out Priority);
+                    if (!(Priority >= 1 && Priority <= 5))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("\t Write Priority only from 1 to 5\tInvalid input. Try again:\n");
+                        Console.ResetColor();
                         pr = false;
                     }
                 } while (!pr);
@@ -77,10 +92,10 @@ namespace Library
                 switch (TypeTask)
                 {
                     case 2:
-                        TaskRepository.AddTask(new Task(NameTask, 1, ComplexityTask));
+                        TaskRepository.AddTask(new Task(NameTask, Priority, ComplexityTask));
                         break;
                     case 3:
-                        TaskRepository.AddTask(new TechnicalDebt(NameTask, 1, ComplexityTask));
+                        TaskRepository.AddTask(new TechnicalDebt(NameTask, Priority, ComplexityTask));
                         break;
                 }
 
@@ -113,8 +128,8 @@ namespace Library
 
                 if (!Int32.TryParse(System.Console.ReadLine(), out ChoiceNomMenu) || !(ChoiceNomMenu >= 1 && ChoiceNomMenu <= 6))
                 {
-                    System.Console.WriteLine("\t Invalid input. Try again:");
-                    Controller.ShowMenuInConsole();
+                    Console.WriteLine("\t Invalid input. Try again:");
+                    ShowMenuInConsole();
                     continue;
                 }
 
@@ -123,54 +138,55 @@ namespace Library
                     case 1:
                         System.Console.WriteLine("\t Insert the Task you want to add:");
 
-                        Controller.AddTask();
+                        AddTask();
                         //HistoryTaskAdd();
-                        Controller.ShowMenuInConsole();
+                        ShowMenuInConsole();
 
                         break;
                     case 2:
 
-                        Controller.ChangeTask();
+                        ChangeTask();
                         //HistoryTaskAdd();
-                        Controller.ShowMenuInConsole();
+                        ShowMenuInConsole();
 
                         break;
                     case 3:
 
                         //void Simulation
-                        Controller.ShowMenuInConsole();
+                        FileHelper.Save();
+                        ShowMenuInConsole();
 
                         break;
                     case 4:
 
                         try
                         {
-                            //void ReadHistoryTasks
+                            //FileHelper.Read();
                         }
                         catch (Exception e)
                         {
-                            System.Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                            Console.WriteLine("\tError. Something went wrong!)", e.Message);
                         }
 
-                        Controller.ShowMenuInConsole();
+                        ShowMenuInConsole();
                         break;
                     case 5:
 
                         try
                         {
                             //void ClearConsole
-                            System.Console.WriteLine("\t Tasks clear successfully.");
+                            Console.WriteLine("\t Tasks clear successfully.");
                         }
                         catch (Exception e)
                         {
-                            System.Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                            Console.WriteLine("\tError. Something went wrong!)", e.Message);
                         }
 
-                        Controller.ShowMenuInConsole();
+                        ShowMenuInConsole();
                         break;
                     case 6:
                         //void WriteHistoryTasks
-                        System.Console.WriteLine("\t Quitting...");
+                        Console.WriteLine("\t Quitting...");
                         MQuit = true;
                         break;
                     default:
