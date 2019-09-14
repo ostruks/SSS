@@ -10,8 +10,8 @@ namespace Library.Tasks
     {
         public Guid Id { get; set; }
         public string NameTechDebt;
-        public int PriorityTechDebt;
-        public int ComplexityTechDebt;
+        //public int PriorityTechDebt;
+        //public int ComplexityTechDebt;
 
         public static List<TechnicalDebt> _technicalDebtList;
 
@@ -24,8 +24,8 @@ namespace Library.Tasks
         {
             this.Id = Guid.NewGuid();
             this.NameTechDebt = Name;
-            this.PriorityTechDebt = Priority;
-            this.ComplexityTechDebt = Complexity;
+            //this.PriorityTechDebt = Priority;
+            //this.ComplexityTechDebt = Complexity;
         }
     }
 }
