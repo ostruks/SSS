@@ -105,5 +105,78 @@ namespace Library
             Console.WriteLine("\t [5] Clear console");
             Console.WriteLine("\t [6] Quit");
         }
+
+        public static void JobWithMenu(ref bool MQuit, ref int ChoiceNomMenu)
+        {
+            while (!MQuit)
+            {
+
+                if (!Int32.TryParse(System.Console.ReadLine(), out ChoiceNomMenu) || !(ChoiceNomMenu >= 1 && ChoiceNomMenu <= 6))
+                {
+                    System.Console.WriteLine("\t Invalid input. Try again:");
+                    Controller.ShowMenuInConsole();
+                    continue;
+                }
+
+                switch (ChoiceNomMenu)
+                {
+                    case 1:
+                        System.Console.WriteLine("\t Insert the Task you want to add:");
+
+                        Controller.AddTask();
+                        //HistoryTaskAdd();
+                        Controller.ShowMenuInConsole();
+
+                        break;
+                    case 2:
+
+                        Controller.ChangeTask();
+                        //HistoryTaskAdd();
+                        Controller.ShowMenuInConsole();
+
+                        break;
+                    case 3:
+
+                        //void Simulation
+                        Controller.ShowMenuInConsole();
+
+                        break;
+                    case 4:
+
+                        try
+                        {
+                            //void ReadHistoryTasks
+                        }
+                        catch (Exception e)
+                        {
+                            System.Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                        }
+
+                        Controller.ShowMenuInConsole();
+                        break;
+                    case 5:
+
+                        try
+                        {
+                            //void ClearConsole
+                            System.Console.WriteLine("\t Tasks clear successfully.");
+                        }
+                        catch (Exception e)
+                        {
+                            System.Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                        }
+
+                        Controller.ShowMenuInConsole();
+                        break;
+                    case 6:
+                        //void WriteHistoryTasks
+                        System.Console.WriteLine("\t Quitting...");
+                        MQuit = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }
