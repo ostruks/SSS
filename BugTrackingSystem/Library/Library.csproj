@@ -45,8 +45,13 @@
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Tasks\BaseTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="Tasks\Task.cs" />
     <Compile Include="Tasks\TaskRepository.cs" />
+=======
+    <Compile Include="Tasks\Bug.cs" />
+    <Compile Include="Tasks\BugLogic.cs" />
+>>>>>>> 4ad5fb3625267a4866f2bac65530e607dabe6557
     <Compile Include="Tasks\TechnicalDebt.cs" />
   </ItemGroup>
   <ItemGroup />
