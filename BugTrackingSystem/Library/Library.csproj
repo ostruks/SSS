@@ -45,6 +45,7 @@
     <Compile Include="Tasks\BaseTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\Bug.cs" />
+    <Compile Include="Tasks\BugLogic.cs" />
     <Compile Include="Tasks\TechnicalDebt.cs" />
     <Compile Include="Tasks\TechnicalDebtLogic.cs" />
   </ItemGroup>
