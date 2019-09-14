@@ -15,14 +15,14 @@ namespace Library
 
             System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
             //show tasks
-            foreach (TechnicalDebt task in TechnicalDebtLogic.GetTechnicalDebts)
+            foreach (var task in TaskRepository.Tasks)
             {
-                System.Console.WriteLine($"{index++,-8}{task.Id} [{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType()}");
+                Console.WriteLine($"{index++,-8}{task.Id} [{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType()}");
             }
 
             do
             {
-                System.Console.Write("\t Write Task №:");
+                Console.Write("\t Write Task №:");
             } while (!Int32.TryParse(System.Console.ReadLine(), out _nomerTask));
 
             //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
@@ -62,25 +62,33 @@ namespace Library
                 //Type
                 do
                 {
-                    System.Console.Write("\t Write Type Task(Bag:1, SomeTask:2, Technical debt: 3):");
+                    Console.Write("\t Write Type Task(Bag:1, SomeTask:2, Technical debt: 3):");
                     pr = int.TryParse(System.Console.ReadLine(), out TypeTask);
                     if (!(TypeTask >= 1 && TypeTask <= 3))
                     {
-                        System.Console.ForegroundColor = ConsoleColor.Red;
-                        System.Console.Write("\t Write Type only 1 or 2 or 3\tInvalid input. Try again:\n");
-                        System.Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("\t Write Type only 1 or 2 or 3\tInvalid input. Try again:\n");
+                        Console.ResetColor();
                         pr = false;
                     }
                 } while (!pr);
 
-                //if (nomerTask = 0)  ListTask.AddTask(new SomeTask(name: NameTask, complexity: ComplexityTask, typeTask: TypeTask));
-                //else ListTask.ChangeTask(new SomeTask(name: NameTask, complexity: ComplexityTask, typeTask: TypeTask));
+                //Add Task
+                switch (TypeTask)
+                {
+                    case 2:
+                        TaskRepository.AddTask(new Task(NameTask, 1, ComplexityTask));
+                        break;
+                    case 3:
+                        TaskRepository.AddTask(new TechnicalDebt(NameTask, 1, ComplexityTask));
+                        break;
+                }
 
-                System.Console.WriteLine("\tSuccessfully Task Add");
+                Console.WriteLine("\tSuccessfully Task Add");
             }
             catch (Exception e)
             {
-                System.Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                Console.WriteLine("\tError. Something went wrong!)", e.Message);
             }
         }
 
@@ -89,17 +97,13 @@ namespace Library
         /// </summary>
         public static void ShowMenuInConsole()
         {
-            System.Console.WriteLine("\n Please choose one of the options:");
-            System.Console.WriteLine("\t [1] Add task");
-            System.Console.WriteLine("\t [2] Change task");
-            System.Console.WriteLine("\t [3] Simulation");
-            System.Console.WriteLine("\t [4] History tasks");
-            System.Console.WriteLine("\t [5] Clear console");
-            System.Console.WriteLine("\t [6] Quit");
-        }
-        public static void AddNEWListForExample()
-        {
-            TechnicalDebtLogic.AddTechnicalDebt(new TechnicalDebt("Hejlsberg", 5, 6));
+            Console.WriteLine("\n Please choose one of the options:");
+            Console.WriteLine("\t [1] Add task");
+            Console.WriteLine("\t [2] Change task");
+            Console.WriteLine("\t [3] Simulation");
+            Console.WriteLine("\t [4] History tasks");
+            Console.WriteLine("\t [5] Clear console");
+            Console.WriteLine("\t [6] Quit");
         }
     }
 }
