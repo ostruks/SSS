@@ -22,5 +22,18 @@ namespace Library.Helpers
                 Console.WriteLine("File is not exist!");
             }
         }
+
+        public static string Read()
+        {
+            if (File.Exists("Tasks.txt"))
+            {
+                return File.ReadAllText("Tasks.txt");
+            }
+            else
+            {
+                Console.WriteLine("File is not exist!");
+                return "";
+            }
+        }
     }
 }

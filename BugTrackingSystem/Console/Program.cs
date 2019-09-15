@@ -1,4 +1,8 @@
-﻿using Library;
+﻿using System;
+using System.IO;
+using Library;
+using Library.Helpers;
+using Library.Tasks;
 
 namespace Console
 {
@@ -9,8 +13,11 @@ namespace Console
             bool MQuit = false;
             int ChoiceNomMenu = 0;
 
+            Controller.FirstLoad();
             Controller.ShowMenuInConsole();
             Controller.JobWithMenu(ref MQuit, ref ChoiceNomMenu);
         }
+
+
     }
 }
