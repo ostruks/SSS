@@ -228,17 +228,19 @@ namespace Library
                                 {
                                     Console.Write("\t Choise Simulation: simulation - 1, random simulation - 2: ");
                                     pr = int.TryParse(Console.ReadLine(), out sim);
-                                    switch (sim)
-                                    {
-                                        case 1:
-                                            SimulationTasks.StartSimulation();
-                                            break;
-                                        case 2:
-                                            SimulationTasks.StartRandomSimulation();
-                                            break;
-                                    }
                                 } while (!pr);
-                                Console.WriteLine("\tSimulation started!");
+                                switch (sim)
+                                {
+                                    case 1:
+                                        Console.WriteLine("\tSimulation started!");
+                                        SimulationTasks.StartSimulation();
+                                        break;
+                                    case 2:
+                                        Console.WriteLine("\tSimulation started!");
+                                        SimulationTasks.StartRandomSimulation();
+                                        break;
+                                }
+                                Console.WriteLine("\tSimulation end!");
                             }
                         }
                         catch (Exception e)

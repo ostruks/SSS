@@ -1,6 +1,7 @@
 ﻿using Library.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Library.Simulation
 {
@@ -17,8 +18,11 @@ namespace Library.Simulation
                 doneIterations += TaskRepository.Tasks[i].Duration;
                 if (doneIterations <= iterations)
                 {
+                    Console.WriteLine(TaskRepository.Tasks[i]);
                     TaskRepository.Tasks[i].Status = "Done";
                     Result.Add(TaskRepository.Tasks[i]);
+                    Thread.Sleep(TimeSpan.FromSeconds(4));
+                    Console.WriteLine(TaskRepository.Tasks[i]);
                 }
                 else
                 {
@@ -41,11 +45,15 @@ namespace Library.Simulation
                 doneIterations += TaskRepository.Tasks[i].Duration;
                 if (doneIterations <= iterations)
                 {
+                    Console.WriteLine(TaskRepository.Tasks[i]);
                     TaskRepository.Tasks[i].Status = statuses[random.Next(0, 1)];
                     Result.Add(TaskRepository.Tasks[i]);
+                    Thread.Sleep(TimeSpan.FromSeconds(4));
+                    Console.WriteLine(TaskRepository.Tasks[i]);
                 }
                 else
                 {
+                    TaskRepository.Tasks[i].Status = "BackLog";
                     Result.Add(TaskRepository.Tasks[i]);
                 }
             }
