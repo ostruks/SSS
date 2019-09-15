@@ -94,7 +94,7 @@ namespace Library
                 switch (TypeTask)
                 {
                     case 1:
-                        BugLogic.AddBug(new Bug(NameTask, Priority, ComplexityTask));
+                        TaskRepository.AddTask(new Bug(NameTask, Priority, ComplexityTask));
                         break;
                     case 2:
                         TaskRepository.AddTask(new Task(NameTask, Priority, ComplexityTask));
