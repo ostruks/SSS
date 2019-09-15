@@ -257,12 +257,14 @@ namespace Library
                             Console.WriteLine("\tError. Something went wrong!)", e.Message);
                         }
 
+                        FileHelper.Save();
+
                         ShowMenuInConsole();
                         break;
                     case 6: // Simulation result
                         for(int x = 0; x < SimulationTasks.ResultSimulation.Count; x++)
                         {
-                            ShowTask(SimulationTasks.ResultSimulation.IndexOf(SimulationTasks.ResultSimulation[x]));
+                            ShowTask(x);
                         }
 
                         ShowMenuInConsole();
@@ -310,16 +312,16 @@ namespace Library
                         String[] point = item.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                         try
                         {
-                            switch (int.Parse(point[4]))
+                            switch (int.Parse(point[3]))
                             {
                                 case 1:
-                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2]), point[3]));
+                                    tasks.Add(new Bug(point[0], int.Parse(point[1]), int.Parse(point[2]), point[4]));
                                     break;
                                 case 2:
-                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2]), point[3]));
+                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2]), point[4]));
                                     break;
                                 case 3:
-                                    tasks.Add(new TechnicalDebt(point[0], int.Parse(point[1]), int.Parse(point[2]), point[3]));
+                                    tasks.Add(new TechnicalDebt(point[0], int.Parse(point[1]), int.Parse(point[2]), point[4]));
                                     break;
                                 default:
                                     break;
