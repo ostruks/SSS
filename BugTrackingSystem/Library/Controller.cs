@@ -53,37 +53,46 @@ namespace Library
                     }
                 } while (!pr);
 
-                //Type
-                do
+                if(nomerTask > 0)
                 {
-                    Console.Write("\t Write Type Task(Bag:1, SomeTask:2, Technical debt: 3): ");
-                    pr = int.TryParse(System.Console.ReadLine(), out TypeTask);
-                    if (!(TypeTask >= 1 && TypeTask <= 3))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("\t Write Type only 1 or 2 or 3\tInvalid input. Try again:\n");
-                        Console.ResetColor();
-                        pr = false;
-                    }
-                } while (!pr);
-
-                //Add Task
-                switch (TypeTask)
-                {
-                    case 1:
-                        TaskRepository.AddTask(new Bug(NameTask, Priority, ComplexityTask, "BackLog"));
-                        break;
-                    case 2:
-                        TaskRepository.AddTask(new Task(NameTask, Priority, ComplexityTask, "BackLog"));
-                        break;
-                    case 3:
-                        TaskRepository.AddTask(new TechnicalDebt(NameTask, Priority, ComplexityTask, "BackLog"));
-                        break;
-                    default:
-                        break;
+                    nomerTask--;
+                    TaskRepository.Tasks[nomerTask].Name = NameTask;
+                    TaskRepository.Tasks[nomerTask].Priority = Priority;
+                    TaskRepository.Tasks[nomerTask].Complexity = ComplexityTask;
+                    Console.WriteLine("\tTask successfully changed");
                 }
-
-                Console.WriteLine("\tSuccessfully Task Add");
+                else
+                {
+                    //Type
+                    do
+                    {
+                        Console.Write("\t Write Type Task(Bag:1, SomeTask:2, Technical debt: 3): ");
+                        pr = int.TryParse(System.Console.ReadLine(), out TypeTask);
+                        if (!(TypeTask >= 1 && TypeTask <= 3))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("\t Write Type only 1 or 2 or 3\tInvalid input. Try again:\n");
+                            Console.ResetColor();
+                            pr = false;
+                        }
+                    } while (!pr);
+                    //Add Task
+                    switch (TypeTask)
+                    {
+                        case 1:
+                            TaskRepository.AddTask(new Bug(NameTask, Priority, ComplexityTask, "BackLog"));
+                            break;
+                        case 2:
+                            TaskRepository.AddTask(new Task(NameTask, Priority, ComplexityTask, "BackLog"));
+                            break;
+                        case 3:
+                            TaskRepository.AddTask(new TechnicalDebt(NameTask, Priority, ComplexityTask, "BackLog"));
+                            break;
+                        default:
+                            break;
+                    }
+                    Console.WriteLine("\tSuccessfully Task Add");
+                }
             }
             catch (Exception e)
             {
@@ -133,11 +142,11 @@ namespace Library
                     Console.WriteLine("\tError. Something went wrong!)", e.Message);
                 }
             }
-            else if (index > -1)
+            else if (index > -1 && index != 0)
             {
                 try
                 {
-                    Console.WriteLine($"[{index + 1}]:{TaskRepository.Tasks[index].Name} ({TaskRepository.Tasks[index].GetType().Name}): priority - {TaskRepository.Tasks[index].Priority}, complexity - {TaskRepository.Tasks[index].Complexity}:{TaskRepository.Tasks[index].Duration}, status - {TaskRepository.Tasks[index].Status}");
+                    Console.WriteLine($"[{index + 1}]:{TaskRepository.Tasks[index--].Name} ({TaskRepository.Tasks[index--].GetType().Name}): priority - {TaskRepository.Tasks[index--].Priority}, complexity - {TaskRepository.Tasks[index].Complexity}:{TaskRepository.Tasks[index].Duration}, status - {TaskRepository.Tasks[index].Status}");
 
                 }
                 catch (Exception e)

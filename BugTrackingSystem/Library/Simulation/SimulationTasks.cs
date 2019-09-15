@@ -19,10 +19,15 @@ namespace Library.Simulation
                 if (doneIterations <= iterations)
                 {
                     Console.WriteLine(TaskRepository.Tasks[i]);
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
+                    TaskRepository.Tasks[i].Status = "In Progress";
+                    Console.WriteLine(TaskRepository.Tasks[i]);
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
                     TaskRepository.Tasks[i].Status = "Done";
                     Result.Add(TaskRepository.Tasks[i]);
-                    Thread.Sleep(TimeSpan.FromSeconds(4));
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
                     Console.WriteLine(TaskRepository.Tasks[i]);
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
                 }
                 else
                 {
@@ -31,7 +36,6 @@ namespace Library.Simulation
                 }
             }
         }
-
         public static void StartRandomSimulation()
         {
             Result.Clear();
@@ -46,10 +50,15 @@ namespace Library.Simulation
                 if (doneIterations <= iterations)
                 {
                     Console.WriteLine(TaskRepository.Tasks[i]);
+                    TaskRepository.Tasks[i].Status = "In Progress";
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
+                    Console.WriteLine(TaskRepository.Tasks[i]);
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
                     TaskRepository.Tasks[i].Status = statuses[random.Next(0, 1)];
                     Result.Add(TaskRepository.Tasks[i]);
-                    Thread.Sleep(TimeSpan.FromSeconds(4));
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
                     Console.WriteLine(TaskRepository.Tasks[i]);
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
                 }
                 else
                 {
@@ -58,7 +67,6 @@ namespace Library.Simulation
                 }
             }
         }
-
         public static List<BaseTask> ResultSimulation {
             get {
                 return Result;
