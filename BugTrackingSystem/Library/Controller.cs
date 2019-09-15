@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Simulation;
 using Library.Tasks;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,13 @@ namespace Library
                 bool pr = false;
 
                 //Name
-                System.Console.Write("\t Write Name Task:");
+                System.Console.Write("\t Write Name Task: ");
                 NameTask = System.Console.ReadLine();
 
                 //Complexity
                 do
                 {
-                    Console.Write("\t Write Complexity Task(from 1 to 5):");
+                    Console.Write("\t Write Complexity Task(from 1 to 5): ");
                     pr = int.TryParse(Console.ReadLine(), out ComplexityTask);
                     if (!(ComplexityTask >= 1 && ComplexityTask <= 5))
                     {
@@ -41,7 +42,7 @@ namespace Library
                 //Priority
                 do
                 {
-                    Console.Write("\t Write Priority Task(from 1 to 5):");
+                    Console.Write("\t Write Priority Task(from 1 to 5): ");
                     pr = int.TryParse(Console.ReadLine(), out Priority);
                     if (!(Priority >= 1 && Priority <= 5))
                     {
@@ -55,7 +56,7 @@ namespace Library
                 //Type
                 do
                 {
-                    Console.Write("\t Write Type Task(Bag:1, SomeTask:2, Technical debt: 3):");
+                    Console.Write("\t Write Type Task(Bag:1, SomeTask:2, Technical debt: 3): ");
                     pr = int.TryParse(System.Console.ReadLine(), out TypeTask);
                     if (!(TypeTask >= 1 && TypeTask <= 3))
                     {
@@ -70,13 +71,13 @@ namespace Library
                 switch (TypeTask)
                 {
                     case 1:
-                        TaskRepository.AddTask(new Bug(NameTask, Priority, ComplexityTask));
+                        TaskRepository.AddTask(new Bug(NameTask, Priority, ComplexityTask, "BackLog"));
                         break;
                     case 2:
-                        TaskRepository.AddTask(new Task(NameTask, Priority, ComplexityTask));
+                        TaskRepository.AddTask(new Task(NameTask, Priority, ComplexityTask, "BackLog"));
                         break;
                     case 3:
-                        TaskRepository.AddTask(new TechnicalDebt(NameTask, Priority, ComplexityTask));
+                        TaskRepository.AddTask(new TechnicalDebt(NameTask, Priority, ComplexityTask, "BackLog"));
                         break;
                     default:
                         break;
@@ -95,13 +96,13 @@ namespace Library
         public static void ChangeTask()
         {
             int _nomerTask;
-            int index = 0;
+            int index = 1;
 
             System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
             //show tasks
             foreach (var task in TaskRepository.Tasks)
             {
-                Console.WriteLine($"{index++,-8}{task.Id} [{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType()}");
+                Console.WriteLine($"{index++,-8}{task.Id} [{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType().Name}");
             }
 
             do
@@ -110,7 +111,7 @@ namespace Library
             } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
 
             //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
-            AddTask(_nomerTask);
+            AddTask(_nomerTask--);
         }
         /// <summary>
         /// Show task
@@ -124,12 +125,7 @@ namespace Library
                 {
                     for (int i = 0; i < TaskRepository.Tasks.Count; i++)
                     {
-                        Console.WriteLine($"[{i}]:{TaskRepository.Tasks[i].Name}:{TaskRepository.Tasks[i].Complexity}");
-                    }
-
-                    foreach (var item in TaskRepository.Tasks)
-                    {
-                        Console.WriteLine(item.Name + item.Complexity);
+                        Console.WriteLine($"[{i + 1}]:{TaskRepository.Tasks[i].Name} ({TaskRepository.Tasks[i].GetType().Name}): priority - {TaskRepository.Tasks[i].Priority}, complexity - {TaskRepository.Tasks[i].Complexity}, status - {TaskRepository.Tasks[i].Status}");
                     }
                 }
                 catch (Exception e)
@@ -141,7 +137,7 @@ namespace Library
             {
                 try
                 {
-                    Console.WriteLine($"[{index}]:{TaskRepository.Tasks[index].Name}:{TaskRepository.Tasks[index].Complexity}:{TaskRepository.Tasks[index].Duration}");
+                    Console.WriteLine($"[{index + 1}]:{TaskRepository.Tasks[index].Name} ({TaskRepository.Tasks[index].GetType().Name}): priority - {TaskRepository.Tasks[index].Priority}, complexity - {TaskRepository.Tasks[index].Complexity}:{TaskRepository.Tasks[index].Duration}, status - {TaskRepository.Tasks[index].Status}");
 
                 }
                 catch (Exception e)
@@ -208,7 +204,7 @@ namespace Library
                         bool pr = false;
                         do
                         {
-                            Console.Write("\t show index who show:");
+                            Console.Write("\t show index who show: ");
                             pr = int.TryParse(Console.ReadLine(), out index);
                         } while (!pr);
 
@@ -225,7 +221,25 @@ namespace Library
 
                         try
                         {
-                            Console.WriteLine("");
+                            if(TaskRepository.Tasks.Count > 0)
+                            {
+                                int sim = 0;
+                                do
+                                {
+                                    Console.Write("\t Choise Simulation: simulation - 1, random simulation - 2: ");
+                                    pr = int.TryParse(Console.ReadLine(), out sim);
+                                    switch (sim)
+                                    {
+                                        case 1:
+                                            SimulationTasks.StartSimulation();
+                                            break;
+                                        case 2:
+                                            SimulationTasks.StartRandomSimulation();
+                                            break;
+                                    }
+                                } while (!pr);
+                                Console.WriteLine("\tSimulation started!");
+                            }
                         }
                         catch (Exception e)
                         {
@@ -235,8 +249,10 @@ namespace Library
                         ShowMenuInConsole();
                         break;
                     case 6: // Simulation result
-                        //void WriteHistoryTasks
-                        Console.WriteLine("");
+                        for(int x = 0; x < SimulationTasks.ResultSimulation.Count; x++)
+                        {
+                            ShowTask(SimulationTasks.ResultSimulation.IndexOf(SimulationTasks.ResultSimulation[x]));
+                        }
 
                         ShowMenuInConsole();
                         break;
@@ -283,16 +299,16 @@ namespace Library
                         String[] point = item.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                         try
                         {
-                            switch (int.Parse(point[3]))
+                            switch (int.Parse(point[4]))
                             {
                                 case 1:
-                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2])));
+                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2]), point[3]));
                                     break;
                                 case 2:
-                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2])));
+                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2]), point[3]));
                                     break;
                                 case 3:
-                                    tasks.Add(new TechnicalDebt(point[0], int.Parse(point[1]), int.Parse(point[2])));
+                                    tasks.Add(new TechnicalDebt(point[0], int.Parse(point[1]), int.Parse(point[2]), point[3]));
                                     break;
                                 default:
                                     break;
