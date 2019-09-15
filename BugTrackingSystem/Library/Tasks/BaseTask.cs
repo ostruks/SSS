@@ -9,6 +9,7 @@ namespace Library.Tasks
         public string Name { get; set; }
         public int Priority { get; set; }
         public int Complexity { get; set; }
+        public int Status { get; set; }
         public double Duration {
             get {
                 return _duration * Priority * (Complexity == 1 ? 1 : Complexity * 0.1 + 1);
@@ -22,6 +23,11 @@ namespace Library.Tasks
             this.Name = Name;
             this.Priority = Priority;
             this.Complexity = Complexity;
+        }
+
+        public override string ToString()
+        {
+            return $"Task: {Name}, {Priority}, {Complexity}, {_duration}";
         }
     }
 }

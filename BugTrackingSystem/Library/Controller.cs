@@ -1,35 +1,13 @@
-﻿using Library.Tasks;
+﻿using Library.Helpers;
+using Library.Tasks;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Library
 {
     public static class Controller
     {
-        /// <summary>
-        /// Add Task
-        /// </summary>
-        public static void ChangeTask()
-        {
-            int _nomerTask;
-            int index = 0;
-
-            System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
-            //show tasks
-            foreach (var task in TaskRepository.Tasks)
-            {
-                Console.WriteLine($"{index++,-8}{task.Id} [{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType()}");
-            }
-
-            do
-            {
-                Console.Write("\t Write Task №:");
-            } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
-
-            //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
-            AddTask(_nomerTask);
-        }
-
         /// <summary>
         /// Add Task
         /// if nomer not null void change task 
@@ -111,156 +89,33 @@ namespace Library
                 Console.WriteLine("\tError. Something went wrong!)", e.Message);
             }
         }
-
         /// <summary>
-        /// 
+        /// Add Task
         /// </summary>
-        public static void ShowMenuInConsole()
+        public static void ChangeTask()
         {
-            Console.WriteLine("\n Please choose one of the options:");
-            Console.WriteLine("\t [1] Add task");
-            Console.WriteLine("\t [2] Change task");
-            Console.WriteLine("\t [3] Show task");
-            Console.WriteLine("\t [4] Show tasks");
-            Console.WriteLine("\t [5] Simulation");
-            Console.WriteLine("\t [6] Simulation result");
-            Console.WriteLine("\t [7] History tasks");
-            Console.WriteLine("\t [8] Clear console");
-            Console.WriteLine("\t [9] Quit");
-        }
+            int _nomerTask;
+            int index = 0;
 
-        public static void JobWithMenu(ref bool MQuit, ref int ChoiceNomMenu)
-        {
-            while (!MQuit)
+            System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
+            //show tasks
+            foreach (var task in TaskRepository.Tasks)
             {
-
-                if (!Int32.TryParse(System.Console.ReadLine(), out ChoiceNomMenu) || !(ChoiceNomMenu >= 1 && ChoiceNomMenu <= 6))
-                {
-                    Console.WriteLine("\t Invalid input. Try again:");
-                    ShowMenuInConsole();
-                    continue;
-                }
-
-                switch (ChoiceNomMenu)
-                {
-                    case 1: //add task
-                        System.Console.WriteLine("\t Insert the Task you want to add:");
-
-                        AddTask();
-                        //HistoryTaskAdd();
-                        ShowMenuInConsole();
-
-                        break;
-                    case 2: //change task 
-
-                        ChangeTask();
-                        //HistoryTaskAdd();
-                        ShowMenuInConsole();
-
-                        break;
-                    case 3: //show one task
-                        System.Console.WriteLine("\t Show Task details");
-
-                        ShowTask();
-
-                        int index;
-                        bool pr = false;
-                        do
-                        {
-                            Console.Write("\t show index who show:");
-                            pr = int.TryParse(System.Console.ReadLine(), out index);
-                        } while (!pr);
-
-                        ShowTask(index);
-
-                        ShowMenuInConsole();
-
-                        break;
-                    case 4: //show all tasks
-
-                        ShowTask();
-
-                        ShowMenuInConsole();
-                        break;
-                    case 5: //simulation
-
-                        try
-                        {
-                            Console.WriteLine("");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("\tError. Something went wrong!)", e.Message);
-                        }
-
-                        ShowMenuInConsole();
-                        break;
-                    case 6: // Simulation result
-                        //void WriteHistoryTasks
-                        Console.WriteLine("");
-                        MQuit = true;
-                        break;
-                    case 7: //History tasks
-                        //void WriteHistoryTasks
-                        Console.WriteLine("");
-                        MQuit = true;
-                        break;
-                    case 8: //Clear console
-                        //void WriteHistoryTasks
-                        Console.WriteLine("");
-                        MQuit = true;
-                        break;
-                    case 9:
-                        //void WriteHistoryTasks
-                        Console.WriteLine("\t Quitting...");
-                        MQuit = true;
-                        break;
-                    default:
-                        break;
-                }
+                Console.WriteLine($"{index++,-8}{task.Id} [{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType()}");
             }
-        }
 
-        public static void FirstLoad()
-        {
-            //FileHelper.Read();
-
-            foreach (string taskList in File.ReadLines("tasks.txt"))
+            do
             {
+                Console.Write("\t Write Task №:");
+            } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
 
-                String[] list = taskList.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var item in list)
-                {
-                    String[] point = item.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    try
-                    {
-                        switch (int.Parse(point[3]))
-                        {
-                            case 1:
-                                //BugLogic.AddBug(new Bug(point[0], int.Parse(point[1]), int.Parse(point[2])));
-                                TaskRepository.AddTask(new Task(point[0], int.Parse(point[1]), int.Parse(point[2])));
-                                break;
-                            case 2:
-                                TaskRepository.AddTask(new Task(point[0], int.Parse(point[1]), int.Parse(point[2])));
-
-                                break;
-                            case 3:
-                                TaskRepository.AddTask(new TechnicalDebt(point[0], int.Parse(point[1]), int.Parse(point[2])));
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Console.WriteLine($"Something went wrong {ex.Message}");
-                    }
-                }
-            }
-            System.Console.WriteLine("List task was load from file");
+            //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
+            AddTask(_nomerTask);
         }
-
+        /// <summary>
+        /// Show task
+        /// </summary>
+        /// <param name="index"></param>
         private static void ShowTask(int index = -1)
         {
             if (index == -1)
@@ -294,7 +149,164 @@ namespace Library
                     Console.WriteLine("\tError. Something went wrong!)", e.Message);
                 }
             }
+        }
+        /// <summary>
+        /// Show menu
+        /// </summary>
+        public static void ShowMenuInConsole()
+        {
+            Console.WriteLine("\n Please choose one of the options:");
+            Console.WriteLine("\t [1] Add task");
+            Console.WriteLine("\t [2] Change task");
+            Console.WriteLine("\t [3] Show task");
+            Console.WriteLine("\t [4] Show tasks");
+            Console.WriteLine("\t [5] Simulation");
+            Console.WriteLine("\t [6] Simulation result");
+            Console.WriteLine("\t [7] History tasks");
+            Console.WriteLine("\t [8] Clear console");
+            Console.WriteLine("\t [9] Quit");
+        }
+        /// <summary>
+        /// Jub with menu
+        /// </summary>
+        /// <param name="MQuit"></param>
+        /// <param name="ChoiceNomMenu"></param>
+        public static void JobWithMenu(ref bool MQuit, ref int ChoiceNomMenu)
+        {
+            while (!MQuit)
+            {
 
+                if (!Int32.TryParse(Console.ReadLine(), out ChoiceNomMenu) || !(ChoiceNomMenu >= 1 && ChoiceNomMenu <= 9))
+                {
+                    Console.WriteLine("\t Invalid input. Try again:");
+                    ShowMenuInConsole();
+                    continue;
+                }
+
+                switch (ChoiceNomMenu)
+                {
+                    case 1: //add task
+                        Console.WriteLine("\t Insert the Task you want to add:");
+
+                        AddTask();
+                        //HistoryTaskAdd();
+                        ShowMenuInConsole();
+
+                        break;
+                    case 2: //change task 
+
+                        ChangeTask();
+                        //HistoryTaskAdd();
+                        ShowMenuInConsole();
+
+                        break;
+                    case 3: //show one task
+                        Console.WriteLine("\t Show Task details");
+                        ShowTask();
+
+                        int index;
+                        bool pr = false;
+                        do
+                        {
+                            Console.Write("\t show index who show:");
+                            pr = int.TryParse(Console.ReadLine(), out index);
+                        } while (!pr);
+
+                        ShowTask(index);
+                        ShowMenuInConsole();
+
+                        break;
+                    case 4: //show all tasks
+
+                        ShowTask();
+                        ShowMenuInConsole();
+                        break;
+                    case 5: //simulation
+
+                        try
+                        {
+                            Console.WriteLine("");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                        }
+
+                        ShowMenuInConsole();
+                        break;
+                    case 6: // Simulation result
+                        //void WriteHistoryTasks
+                        Console.WriteLine("");
+
+                        ShowMenuInConsole();
+                        break;
+                    case 7: //History tasks
+                        int i = 1;
+                        foreach (var a in History())
+                        {
+                            Console.WriteLine($"{i}. {a}");
+                            i++;
+                        }
+
+                        ShowMenuInConsole();
+                        break;
+                    case 8: //Clear console
+                        Console.Clear();
+
+                        ShowMenuInConsole();
+                        break;
+                    case 9:
+                        //void WriteHistoryTasks
+                        Console.WriteLine("\t Quitting...");
+                        MQuit = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        /// <summary>
+        /// History of stories
+        /// </summary>
+        /// <returns></returns>
+        public static List<BaseTask> History()
+        {
+            List<BaseTask> tasks = new List<BaseTask>();
+            if (File.Exists("tasks.txt"))
+            {
+                foreach (string taskList in FileHelper.Read())
+                {
+                    String[] list = taskList.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var item in list)
+                    {
+                        String[] point = item.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        try
+                        {
+                            switch (int.Parse(point[3]))
+                            {
+                                case 1:
+                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2])));
+                                    break;
+                                case 2:
+                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2])));
+                                    break;
+                                case 3:
+                                    tasks.Add(new TechnicalDebt(point[0], int.Parse(point[1]), int.Parse(point[2])));
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Something went wrong {ex.Message}");
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("List task was load from file");
+            return tasks;
         }
     }
 }

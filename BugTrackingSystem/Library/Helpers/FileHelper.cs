@@ -23,16 +23,16 @@ namespace Library.Helpers
             }
         }
 
-        public static string Read()
+        public static string[] Read()
         {
             if (File.Exists("Tasks.txt"))
             {
-                return File.ReadAllText("Tasks.txt");
+                return File.ReadAllLines("Tasks.txt");
             }
             else
             {
                 Console.WriteLine("File is not exist!");
-                return "";
+                return new string[0];
             }
         }
     }

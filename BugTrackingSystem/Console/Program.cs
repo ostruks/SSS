@@ -9,7 +9,6 @@ namespace Console
             bool MQuit = false;
             int ChoiceNomMenu = 0;
 
-            Controller.FirstLoad();
             Controller.ShowMenuInConsole();
             Controller.JobWithMenu(ref MQuit, ref ChoiceNomMenu);
         }
