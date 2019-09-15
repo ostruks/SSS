@@ -48,7 +48,6 @@
     <Compile Include="Tasks\Task.cs" />
     <Compile Include="Tasks\TaskRepository.cs" />
     <Compile Include="Tasks\Bug.cs" />
-    <Compile Include="Tasks\BugLogic.cs" />
     <Compile Include="Tasks\TechnicalDebt.cs" />
   </ItemGroup>
   <ItemGroup />

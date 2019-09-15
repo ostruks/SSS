@@ -1,8 +1,6 @@
-﻿using Library.Helpers;
-using Library.Tasks;
+﻿using Library.Tasks;
 using System;
 using System.IO;
-using System.Linq;
 
 namespace Library
 {
@@ -274,7 +272,7 @@ namespace Library
                         Console.WriteLine($"[{i}]:{TaskRepository.Tasks[i].Name}:{TaskRepository.Tasks[i].Complexity}");
                     }
 
-                    foreach (var item in Bug._bugList)
+                    foreach (var item in TaskRepository.Tasks)
                     {
                         Console.WriteLine(item.Name + item.Complexity);
                     }
