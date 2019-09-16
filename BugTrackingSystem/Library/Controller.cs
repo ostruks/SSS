@@ -112,26 +112,34 @@ namespace Library
         /// </summary>
         public static void ChangeTask()
         {
-            int _nomerTask;
-            int index = 1;
-
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
-            //show tasks
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            foreach (var task in TaskRepository.Tasks)
+            if(TaskRepository.Tasks.Count > 0)
             {
-                Console.WriteLine($"{index++,-8}{task.Id} [{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType().Name}");
-            }
+                int _nomerTask;
+                int index = 1;
 
-            do
-            {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("\t Write Task №:");
-            } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
+                System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
+                //show tasks
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                foreach (var task in TaskRepository.Tasks)
+                {
+                    Console.WriteLine($"{index++,-8}{task.Id} \t[{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType().Name}");
+                }
 
-            //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
-            AddTask(_nomerTask--);
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("\t Write Task №:");
+                } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
+
+                //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
+                AddTask(_nomerTask--);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("\tTask repository is empty!");
+            }
         }
         /// <summary>
         /// Show task
@@ -148,7 +156,7 @@ namespace Library
                         Console.ForegroundColor = ConsoleColor.Green;
                         for (int i = 0; i < TaskRepository.Tasks.Count; i++)
                         {
-                            Console.WriteLine($"[{i + 1}]:{TaskRepository.Tasks[i].Name} ({TaskRepository.Tasks[i].GetType().Name}): priority - {TaskRepository.Tasks[i].Priority}, complexity - {TaskRepository.Tasks[i].Complexity}, status - {TaskRepository.Tasks[i].Status}");
+                            Console.WriteLine($"[{i + 1}]: {TaskRepository.Tasks[i].Display()}");
                         }
                     }
                     else
@@ -169,7 +177,7 @@ namespace Library
                 {
                     index--;
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"[{index + 1}]:{TaskRepository.Tasks[index].Name} ({TaskRepository.Tasks[index].GetType().Name}): priority - {TaskRepository.Tasks[index].Priority}, complexity - {TaskRepository.Tasks[index].Complexity}:{TaskRepository.Tasks[index].Duration}, status - {TaskRepository.Tasks[index].Status}");
+                    Console.WriteLine($"[{index + 1}]: {TaskRepository.Tasks[index].Display()}");
 
                 }
                 catch (Exception e)
@@ -321,7 +329,7 @@ namespace Library
                         int i = 1;
                         foreach (var a in History())
                         {
-                            Console.WriteLine($"Sprint: {a.Sprint} | {i}. {a}");
+                            Console.WriteLine($"Sprint: {a.Sprint} [{i}] {a.Display()}");
                             i++;
                         }
 

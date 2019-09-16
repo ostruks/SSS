@@ -27,9 +27,8 @@ namespace Library.Tasks
             this.Status = Status;
         }
 
-        public override string ToString()
-        {
-            return $"Task: {Name}, {Priority}, {Complexity}, {_duration}, {Status}";
+        public virtual string Display() {
+            return $"BaseTask: {Name}, {Priority}, {Complexity}, {_duration}, {Status}";
         }
     }
 }

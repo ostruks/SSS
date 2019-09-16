@@ -8,5 +8,10 @@ namespace Library.Tasks
         {
             Id = Guid.NewGuid();
         }
+
+        public override string Display()
+        {
+            return $"Bug: {Name}, priority: {Priority}, complexity: {Complexity}, duration: {Duration}, status: {Status}";
+        }
     }
 }
