@@ -146,7 +146,8 @@ namespace Library
             {
                 try
                 {
-                    Console.WriteLine($"[{index + 1}]:{TaskRepository.Tasks[index--].Name} ({TaskRepository.Tasks[index--].GetType().Name}): priority - {TaskRepository.Tasks[index--].Priority}, complexity - {TaskRepository.Tasks[index].Complexity}:{TaskRepository.Tasks[index].Duration}, status - {TaskRepository.Tasks[index].Status}");
+                    index--;
+                    Console.WriteLine($"[{index + 1}]:{TaskRepository.Tasks[index].Name} ({TaskRepository.Tasks[index].GetType().Name}): priority - {TaskRepository.Tasks[index].Priority}, complexity - {TaskRepository.Tasks[index].Complexity}:{TaskRepository.Tasks[index].Duration}, status - {TaskRepository.Tasks[index].Status}");
 
                 }
                 catch (Exception e)

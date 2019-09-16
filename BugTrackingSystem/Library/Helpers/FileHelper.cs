@@ -8,19 +8,26 @@ namespace Library.Helpers
     {
         public static void Save()
         {
+            string read = "";
             if (File.Exists("Tasks.txt"))
             {
-                string read = File.ReadAllText("Tasks.txt");
+                read = File.ReadAllText("Tasks.txt");
                 read += "\n";
                 foreach (var a in TaskRepository.Tasks)
                 {
                     read += $"{a.Name} {a.Priority} {a.Complexity} {(a is Bug ? 1 : a is Task ? 2 : 3)} {a.Status}\n";
                 }
                 File.WriteAllText("Tasks.txt", read);
+                Console.WriteLine("Tasks save!");
             }
             else
             {
-                Console.WriteLine("File is not exist!");
+                foreach (var a in TaskRepository.Tasks)
+                {
+                    read += $"{a.Name} {a.Priority} {a.Complexity} {(a is Bug ? 1 : a is Task ? 2 : 3)} {a.Status}\n";
+                }
+                File.WriteAllText("Tasks.txt", read);
+                Console.WriteLine("Tasks save!");
             }
         }
 
