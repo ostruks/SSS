@@ -216,7 +216,7 @@ namespace Library
             while (!MQuit)
             {
 
-                if (!Int32.TryParse(Console.ReadLine(), out ChoiceNomMenu) || !(ChoiceNomMenu >= 1 && ChoiceNomMenu <= 9))
+                if (!Int32.TryParse(Console.ReadLine(), out ChoiceNomMenu) || !(ChoiceNomMenu >= 1 && ChoiceNomMenu <= 10))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\t Invalid input. Try again:");
@@ -376,7 +376,7 @@ namespace Library
                         String[] point = item.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                         try
                         {
-                            switch (int.Parse(point[3]))
+                            switch (int.Parse(point[4]))
                             {
                                 case 1:
                                     tasks.Add(new Bug(point[1], int.Parse(point[2]), int.Parse(point[3]), point[4]) { Sprint = int.Parse(point[0]) });
@@ -397,8 +397,13 @@ namespace Library
                         }
                     }
                 }
+                Console.WriteLine("List task was load from file");
             }
-            Console.WriteLine("List task was load from file");
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("File is not exist!");
+            }
             return tasks;
         }
     }

@@ -33,15 +33,7 @@ namespace Library.Helpers
 
         public static string[] Read()
         {
-            if (File.Exists("Tasks.txt"))
-            {
-                return File.ReadAllLines("Tasks.txt");
-            }
-            else
-            {
-                Console.WriteLine("File is not exist!");
-                return new string[0];
-            }
+            return File.ReadAllLines("Tasks.txt");
         }
     }
 }

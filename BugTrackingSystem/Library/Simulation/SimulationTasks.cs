@@ -19,17 +19,17 @@ namespace Library.Simulation
                 if (doneIterations <= iterations)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(TaskRepository.Tasks[i]);
+                    Console.WriteLine(TaskRepository.Tasks[i].Display());
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                     TaskRepository.Tasks[i].Status = "In Progress";
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(TaskRepository.Tasks[i]);
+                    Console.WriteLine(TaskRepository.Tasks[i].Display());
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                     TaskRepository.Tasks[i].Status = "Done";
                     Result.Add(TaskRepository.Tasks[i]);
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(TaskRepository.Tasks[i]);
+                    Console.WriteLine(TaskRepository.Tasks[i].Display());
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                 }
                 else
@@ -53,17 +53,17 @@ namespace Library.Simulation
                 if (doneIterations <= iterations)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(TaskRepository.Tasks[i]);
+                    Console.WriteLine(TaskRepository.Tasks[i].Display());
                     TaskRepository.Tasks[i].Status = "In Progress";
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(TaskRepository.Tasks[i]);
+                    Console.WriteLine(TaskRepository.Tasks[i].Display());
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                     TaskRepository.Tasks[i].Status = statuses[random.Next(0, 1)];
                     Result.Add(TaskRepository.Tasks[i]);
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(TaskRepository.Tasks[i]);
+                    Console.WriteLine(TaskRepository.Tasks[i].Display());
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                 }
                 else
