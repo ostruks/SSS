@@ -9,6 +9,7 @@ namespace Library
 {
     public static class Controller
     {
+        private static int Sprint = 0;
         /// <summary>
         /// Add Task
         /// if nomer not null void change task 
@@ -193,8 +194,9 @@ namespace Library
             Console.WriteLine("\t [5] Simulation");
             Console.WriteLine("\t [6] Simulation result");
             Console.WriteLine("\t [7] History tasks");
-            Console.WriteLine("\t [8] Clear console");
-            Console.WriteLine("\t [9] Quit");
+            Console.WriteLine("\t [8] Clear repository");
+            Console.WriteLine("\t [9] Clear console");
+            Console.WriteLine("\t [10] Quit");
         }
         /// <summary>
         /// Jub with menu
@@ -292,7 +294,8 @@ namespace Library
                             Console.WriteLine("\tError. Something went wrong!)", e.Message);
                         }
 
-                        FileHelper.Save();
+                        Sprint++;
+                        FileHelper.Save(Sprint);
 
                         ShowMenuInConsole();
                         break;
@@ -318,18 +321,25 @@ namespace Library
                         int i = 1;
                         foreach (var a in History())
                         {
-                            Console.WriteLine($"{i}. {a}");
+                            Console.WriteLine($"Sprint: {a.Sprint} | {i}. {a}");
                             i++;
                         }
 
                         ShowMenuInConsole();
                         break;
-                    case 8: //Clear console
+                    case 8: //Clear Repository
+                        TaskRepository.Tasks.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Repository cleared!");
+
+                        ShowMenuInConsole();
+                        break;
+                    case 9: //Clear console
                         Console.Clear();
 
                         ShowMenuInConsole();
                         break;
-                    case 9:
+                    case 10:
                         //void WriteHistoryTasks
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("\t Quitting...");
@@ -361,13 +371,13 @@ namespace Library
                             switch (int.Parse(point[3]))
                             {
                                 case 1:
-                                    tasks.Add(new Bug(point[0], int.Parse(point[1]), int.Parse(point[2]), point[4]));
+                                    tasks.Add(new Bug(point[1], int.Parse(point[2]), int.Parse(point[3]), point[4]) { Sprint = int.Parse(point[0]) });
                                     break;
                                 case 2:
-                                    tasks.Add(new Task(point[0], int.Parse(point[1]), int.Parse(point[2]), point[4]));
+                                    tasks.Add(new Task(point[1], int.Parse(point[2]), int.Parse(point[3]), point[4]) { Sprint = int.Parse(point[0]) });
                                     break;
                                 case 3:
-                                    tasks.Add(new TechnicalDebt(point[0], int.Parse(point[1]), int.Parse(point[2]), point[4]));
+                                    tasks.Add(new TechnicalDebt(point[1], int.Parse(point[2]), int.Parse(point[3]), point[4]) { Sprint = int.Parse(point[0]) });
                                     break;
                                 default:
                                     break;

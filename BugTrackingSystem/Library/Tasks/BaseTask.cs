@@ -10,6 +10,7 @@ namespace Library.Tasks
         public int Priority { get; set; }
         public int Complexity { get; set; }
         public string Status { get; set; }
+        public int Sprint { get; set; }
         public double Duration {
             get {
                 return _duration * Priority * (Complexity == 1 ? 1 : Complexity * 0.1 + 1);
