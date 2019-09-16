@@ -379,13 +379,13 @@ namespace Library
                             switch (int.Parse(point[4]))
                             {
                                 case 1:
-                                    tasks.Add(new Bug(point[1], int.Parse(point[2]), int.Parse(point[3]), point[4]) { Sprint = int.Parse(point[0]) });
+                                    tasks.Add(new Bug(point[1], int.Parse(point[2]), int.Parse(point[3]), point[5]) { Sprint = int.Parse(point[0]) });
                                     break;
                                 case 2:
-                                    tasks.Add(new Task(point[1], int.Parse(point[2]), int.Parse(point[3]), point[4]) { Sprint = int.Parse(point[0]) });
+                                    tasks.Add(new Task(point[1], int.Parse(point[2]), int.Parse(point[3]), point[5]) { Sprint = int.Parse(point[0]) });
                                     break;
                                 case 3:
-                                    tasks.Add(new TechnicalDebt(point[1], int.Parse(point[2]), int.Parse(point[3]), point[4]) { Sprint = int.Parse(point[0]) });
+                                    tasks.Add(new TechnicalDebt(point[1], int.Parse(point[2]), int.Parse(point[3]), point[5]) { Sprint = int.Parse(point[0]) });
                                     break;
                                 default:
                                     break;
