@@ -3,13 +3,63 @@ using Library.Simulation;
 using Library.Tasks;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 namespace Library
 {
     public static class Controller
     {
+        public enum MenuItem
+        {
+            [Description("\n Please choose one of the options:")]
+            None = 0,
+            [Description("\t [1] Add task")]
+            AddTask = 1,
+            [Description("\t [2] Change task")]
+            ChangeTask = 2
+        }
+
         private static int Sprint = 0;
+
+
+        /// <summary>
+        /// Show menu
+        /// </summary>
+        public static void ShowMenuInConsole()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine(MenuItem.None.GetDescription());
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(MenuItem.AddTask.GetDescription());
+            Console.WriteLine("\t [2] Change task");
+            Console.WriteLine("\t [3] Show task");
+            Console.WriteLine("\t [4] Show tasks");
+            Console.WriteLine("\t [5] Simulation");
+            Console.WriteLine("\t [6] Simulation result");
+            Console.WriteLine("\t [7] History tasks");
+            Console.WriteLine("\t [8] Clear repository");
+            Console.WriteLine("\t [9] Clear console");
+            Console.WriteLine("\t [10] Quit");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string GetDescription(this Enum value)
+        {
+            var descriptionAttribute = (DescriptionAttribute)value.GetType()
+                .GetField(value.ToString())
+                .GetCustomAttributes(false)
+                .Where(a => a is DescriptionAttribute)
+                .FirstOrDefault();
+
+            return descriptionAttribute != null ? descriptionAttribute.Description : value.ToString();
+        }
+
         /// <summary>
         /// Add Task
         /// if nomer not null void change task 
@@ -187,25 +237,7 @@ namespace Library
                 }
             }
         }
-        /// <summary>
-        /// Show menu
-        /// </summary>
-        public static void ShowMenuInConsole()
-        {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("\n Please choose one of the options:");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\t [1] Add task");
-            Console.WriteLine("\t [2] Change task");
-            Console.WriteLine("\t [3] Show task");
-            Console.WriteLine("\t [4] Show tasks");
-            Console.WriteLine("\t [5] Simulation");
-            Console.WriteLine("\t [6] Simulation result");
-            Console.WriteLine("\t [7] History tasks");
-            Console.WriteLine("\t [8] Clear repository");
-            Console.WriteLine("\t [9] Clear console");
-            Console.WriteLine("\t [10] Quit");
-        }
+
         /// <summary>
         /// Jub with menu
         /// </summary>
@@ -232,16 +264,16 @@ namespace Library
 
                 switch (choiceNomMenu)
                 {
-                    case 1: //add task
+                    case (int)MenuItem.AddTask:
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.WriteLine("\t Insert the Task you want to add:");
 
                         AddTask();
-                        //HistoryTaskAdd();
+                       
                         ShowMenuInConsole();
 
                         break;
-                    case 2: //change task 
+                    case (int)MenuItem.ChangeTask:
 
                         ChangeTask();
                         //HistoryTaskAdd();
