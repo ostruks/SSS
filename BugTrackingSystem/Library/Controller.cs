@@ -187,7 +187,7 @@ namespace Library
                 do
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.Write("\t Write Task №:");
+                    Console.Write("\t Write task numbers:");
                 } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
 
                 //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);

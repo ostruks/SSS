@@ -6,9 +6,6 @@ namespace Console
     {
         static void Main(string[] args)
         {
-          
-
-           
             Controller.JobWithMenu();
         }
     }
