@@ -164,6 +164,7 @@ namespace Library
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                LogMsg.WriteLog(e.Message);
             }
         }
         /// <summary>
@@ -228,6 +229,7 @@ namespace Library
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                    LogMsg.WriteLog(e.Message);
                 }
             }
             else if (index > -1 && index != 0)
@@ -348,6 +350,7 @@ namespace Library
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                            LogMsg.WriteLog(e.Message);
                         }
 
                         Sprint++;
@@ -442,6 +445,7 @@ namespace Library
                         catch (Exception ex)
                         {
                             Console.WriteLine($"Something went wrong {ex.Message}");
+                            LogMsg.WriteLog(ex.Message);
                         }
                     }
                 }
