@@ -15,7 +15,7 @@ namespace Library.Helpers
                 foreach (var a in TaskRepository.Tasks)
                 {
                     a.Sprint = Sprint;
-                    read += $"{a.Sprint} {a.Name} {a.Priority} {a.Complexity} {(a is Bug ? 1 : a is Task ? 2 : 3)} {a.Status}\n";
+                    read += $"{a.Sprint} {a.Name} {a.Priority} {a.Complexity} {a.Type} {a.Status}\n";
                 }
                 File.WriteAllText("Tasks.txt", read);
                 Console.WriteLine("Tasks save!");
@@ -24,7 +24,7 @@ namespace Library.Helpers
             {
                 foreach (var a in TaskRepository.Tasks)
                 {
-                    read += $"{a.Sprint} {a.Name} {a.Priority} {a.Complexity} {(a is Bug ? 1 : a is Task ? 2 : 3)} {a.Status}\n";
+                    read += $"{a.Sprint} {a.Name} {a.Priority} {a.Complexity} {a.Type} {a.Status}\n";
                 }
                 File.WriteAllText("Tasks.txt", read);
                 Console.WriteLine("Tasks save!");
