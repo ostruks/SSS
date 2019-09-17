@@ -12,23 +12,23 @@ namespace Library.Helpers
             if (File.Exists("Tasks.txt"))
             {
                 read = File.ReadAllText("Tasks.txt");
-                foreach (var a in TaskRepository.Tasks)
-                {
-                    a.Sprint = Sprint;
-                    read += $"{a.Sprint} {a.Name} {a.Priority} {a.Complexity} {a.Type} {a.Status}\n";
-                }
-                File.WriteAllText("Tasks.txt", read);
-                Console.WriteLine("Tasks save!");
+                FileWrite(read, Sprint);
             }
             else
             {
-                foreach (var a in TaskRepository.Tasks)
-                {
-                    read += $"{a.Sprint} {a.Name} {a.Priority} {a.Complexity} {a.Type} {a.Status}\n";
-                }
-                File.WriteAllText("Tasks.txt", read);
-                Console.WriteLine("Tasks save!");
+                FileWrite(read);
             }
+        }
+
+        private static void FileWrite(string read, int Sprint = -1)
+        {
+            foreach (var a in TaskRepository.Tasks)
+            {
+                if (Sprint > -1) a.Sprint = Sprint;
+                read += $"{a.Sprint} {a.Name} {a.Priority} {a.Complexity} {a.Type} {a.Status}\n";
+            }
+            File.WriteAllText("Tasks.txt", read);
+            Console.WriteLine("Tasks save!");
         }
 
         public static string[] Read()
