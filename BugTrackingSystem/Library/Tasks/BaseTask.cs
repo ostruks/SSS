@@ -11,11 +11,13 @@ namespace Library.Tasks
         public int Complexity { get; set; }
         public string Status { get; set; }
         public int Sprint { get; set; }
-        public double Duration {
-            get {
+        public abstract string Type { get; }
+        public double Duration
+        {
+            get
+            {
                 return _duration * Priority * (Complexity == 1 ? 1 : Complexity * 0.1 + 1);
             }
-            private set{}
         }
 
         public BaseTask(string Name, int Priority, int Complexity, string Status)
@@ -27,7 +29,8 @@ namespace Library.Tasks
             this.Status = Status;
         }
 
-        public virtual string Display() {
+        public virtual string Display()
+        {
             return $"BaseTask: {Name}, {Priority}, {Complexity}, {_duration}, {Status}";
         }
     }
