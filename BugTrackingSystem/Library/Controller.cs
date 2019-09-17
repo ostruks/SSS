@@ -1,4 +1,5 @@
 ﻿using Library.Helpers;
+using Library.Log;
 using Library.Simulation;
 using Library.Tasks;
 using System;
@@ -242,6 +243,7 @@ namespace Library
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\tError. Something went wrong!)", e.Message);
+                    LogMsg.WriteLog(e.Message);
                 }
             }
         }
