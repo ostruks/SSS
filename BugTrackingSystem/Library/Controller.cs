@@ -18,36 +18,44 @@ namespace Library
             [Description("\t [1] Add task")]
             AddTask = 1,
             [Description("\t [2] Change task")]
-            ChangeTask = 2
+            ChangeTask = 2,
+            [Description("\t [3] Show tasks")]
+            ShowTask = 3,
+            [Description("\t [4] Show tasks")]
+            ShowTasks = 4,
+            [Description("\t [5] Simulation")]
+            Simulation = 5,
+            [Description("\t [6] Simulation result")]
+            SimulationResult = 6,
+            [Description("\t [7] History tasks")]
+            HistoryTasks = 7,
+            [Description("\t [8] Clear repository")]
+            ClearRepository = 8,
+            [Description("\t [9] Clear console")]
+            ClearConsole = 9,
+            [Description("\t [10] Quit")]
+            Quit = 10
         }
 
         private static int Sprint = 0;
-
 
         /// <summary>
         /// Show menu
         /// </summary>
         public static void ShowMenuInConsole()
         {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(MenuItem.None.GetDescription());
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(MenuItem.AddTask.GetDescription());
-            Console.WriteLine("\t [2] Change task");
-            Console.WriteLine("\t [3] Show task");
-            Console.WriteLine("\t [4] Show tasks");
-            Console.WriteLine("\t [5] Simulation");
-            Console.WriteLine("\t [6] Simulation result");
-            Console.WriteLine("\t [7] History tasks");
-            Console.WriteLine("\t [8] Clear repository");
-            Console.WriteLine("\t [9] Clear console");
-            Console.WriteLine("\t [10] Quit");
+            foreach (MenuItem item in Enum.GetValues(typeof(MenuItem)))
+            {
+                if (item == 0) Console.ForegroundColor = ConsoleColor.DarkYellow;
+                else Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine(item.GetDescription());
+            }
         }
 
         /// <summary>
-        /// 
+        /// GetDescription Enum
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Enum type</param>
         /// <returns></returns>
         public static string GetDescription(this Enum value)
         {
@@ -107,7 +115,7 @@ namespace Library
                     }
                 } while (!pr);
 
-                if(nomerTask > 0)
+                if (nomerTask > 0)
                 {
                     nomerTask--;
                     TaskRepository.Tasks[nomerTask].Name = NameTask;
@@ -162,7 +170,7 @@ namespace Library
         /// </summary>
         public static void ChangeTask()
         {
-            if(TaskRepository.Tasks.Count > 0)
+            if (TaskRepository.Tasks.Count > 0)
             {
                 int _nomerTask;
                 int index = 1;
@@ -269,7 +277,7 @@ namespace Library
                         Console.WriteLine("\t Insert the Task you want to add:");
 
                         AddTask();
-                       
+
                         ShowMenuInConsole();
 
                         break;
@@ -308,7 +316,7 @@ namespace Library
 
                         try
                         {
-                            if(TaskRepository.Tasks.Count > 0)
+                            if (TaskRepository.Tasks.Count > 0)
                             {
                                 int sim = 0;
                                 do
@@ -347,7 +355,7 @@ namespace Library
                         break;
                     case 6: // Simulation result
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        if(SimulationTasks.ResultSimulation.Count == 0)
+                        if (SimulationTasks.ResultSimulation.Count == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("\tIs no finished simulations!");
