@@ -6,11 +6,10 @@ namespace Console
     {
         static void Main(string[] args)
         {
-            bool MQuit = false;
-            int ChoiceNomMenu = 0;
+          
 
-            Controller.ShowMenuInConsole();
-            Controller.JobWithMenu(ref MQuit, ref ChoiceNomMenu);
+           
+            Controller.JobWithMenu();
         }
     }
 }

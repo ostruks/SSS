@@ -211,12 +211,18 @@ namespace Library
         /// </summary>
         /// <param name="MQuit"></param>
         /// <param name="ChoiceNomMenu"></param>
-        public static void JobWithMenu(ref bool MQuit, ref int ChoiceNomMenu)
+        public static void JobWithMenu()
         {
-            while (!MQuit)
+
+            bool mQuit = false;
+            int choiceNomMenu = 0;
+
+            Controller.ShowMenuInConsole();
+
+            while (!mQuit)
             {
 
-                if (!Int32.TryParse(Console.ReadLine(), out ChoiceNomMenu) || !(ChoiceNomMenu >= 1 && ChoiceNomMenu <= 10))
+                if (!Int32.TryParse(Console.ReadLine(), out choiceNomMenu) || !(choiceNomMenu >= 1 && choiceNomMenu <= 10))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\t Invalid input. Try again:");
@@ -224,7 +230,7 @@ namespace Library
                     continue;
                 }
 
-                switch (ChoiceNomMenu)
+                switch (choiceNomMenu)
                 {
                     case 1: //add task
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -351,7 +357,7 @@ namespace Library
                         //void WriteHistoryTasks
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("\t Quitting...");
-                        MQuit = true;
+                        mQuit = true;
                         break;
                     default:
                         break;
