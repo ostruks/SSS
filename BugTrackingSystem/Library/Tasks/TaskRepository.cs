@@ -13,14 +13,16 @@ namespace Library.Tasks
             }
         }
 
-        public static void AddTask(BaseTask task)
+        internal static void AddTask(BaseTask task)
         {
-            _tasks.Add(task);
+            if (task != null)
+                _tasks.Add(task);
         }
 
-        public static void RemoveTask(BaseTask task)
+        internal static void RemoveTask(BaseTask task)
         {
-            _tasks.Remove(task);
+            if (task != null)
+                _tasks.Remove(task);
         }
     }
 }
