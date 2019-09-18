@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Controller.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Interfaces\IReadFile.cs" />
+    <Compile Include="Interfaces\ISaveFile.cs" />
     <Compile Include="Log\LogMsg.cs" />
     <Compile Include="Simulation\SimulationTasks.cs" />
     <Compile Include="Tasks\BaseTask.cs" />
