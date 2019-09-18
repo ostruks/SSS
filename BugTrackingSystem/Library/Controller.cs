@@ -61,6 +61,7 @@ namespace Library
 
         /// <summary>
         /// GetDescription Enum
+        /// extension method (this Enum value)
         /// </summary>
         /// <param name="value">Enum type</param>
         /// <returns></returns>
