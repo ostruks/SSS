@@ -12,6 +12,14 @@ namespace Library
 {
     public static class Controller
     {
+        /// <summary>
+        /// For adding number of sprint
+        /// </summary>
+        private static int _sprint = 0;
+
+        /// <summary>
+        /// enum for using menu
+        /// </summary>
         public enum MenuItem
         {
             [Description("\n Please choose one of the options:")]
@@ -37,8 +45,6 @@ namespace Library
             [Description("\t [10] Quit")]
             Quit = 10
         }
-
-        private static int Sprint = 0;
 
         /// <summary>
         /// Show menu
@@ -74,6 +80,51 @@ namespace Library
         /// if nomer not null void change task 
         /// </summary>
         public static void AddTask(int nomerTask = 0)
+        {
+            AddOrChange(nomerTask);
+        }
+
+        /// <summary>
+        /// Add Task
+        /// </summary>
+        public static void ChangeTask()
+        {
+            if (TaskRepository.Tasks.Count > 0)
+            {
+                int _nomerTask;
+                int index = 1;
+
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
+                //show tasks
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                foreach (var task in TaskRepository.Tasks)
+                {
+                    Console.WriteLine($"{index++,-8}{task.Id} \t[{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType().Name}");
+                }
+
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("\t Write task numbers:");
+                } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
+
+                //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
+                AddTask(_nomerTask--);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("\tTask repository is empty!");
+            }
+        }
+
+        /// <summary>
+        /// Add or change task
+        /// </summary>
+        /// <param name="nomerTask">number of task</param>
+        /// <returns></returns>
+        private static void AddOrChange(int nomerTask)
         {
             try
             {
@@ -116,31 +167,44 @@ namespace Library
                     }
                 } while (!pr);
 
+                //Type
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("\t Write Type Task(Bag:1, Task:2, Technical debt: 3): ");
+                    pr = int.TryParse(System.Console.ReadLine(), out TypeTask);
+                    if (!(TypeTask >= 1 && TypeTask <= 3))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("\t Write Type only 1 or 2 or 3\tInvalid input. Try again:\n");
+                        Console.ResetColor();
+                        pr = false;
+                    }
+                } while (!pr);
+
                 if (nomerTask > 0)
                 {
                     nomerTask--;
-                    TaskRepository.Tasks[nomerTask].Name = NameTask;
-                    TaskRepository.Tasks[nomerTask].Priority = Priority;
-                    TaskRepository.Tasks[nomerTask].Complexity = ComplexityTask;
+                    string status = TaskRepository.Tasks[nomerTask].Status;
+                    switch (TypeTask)
+                    {
+                        case 1:
+                            TaskRepository.Tasks[nomerTask] = new Bug(NameTask, Priority, ComplexityTask, status);
+                            break;
+                        case 2:
+                            TaskRepository.Tasks[nomerTask] = new Task(NameTask, Priority, ComplexityTask, status);
+                            break;
+                        case 3:
+                            TaskRepository.Tasks[nomerTask] = new TechnicalDebt(NameTask, Priority, ComplexityTask, status);
+                            break;
+                        default:
+                            break;
+                    }
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("\tTask successfully changed");
                 }
                 else
                 {
-                    //Type
-                    do
-                    {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write("\t Write Type Task(Bag:1, SomeTask:2, Technical debt: 3): ");
-                        pr = int.TryParse(System.Console.ReadLine(), out TypeTask);
-                        if (!(TypeTask >= 1 && TypeTask <= 3))
-                        {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write("\t Write Type only 1 or 2 or 3\tInvalid input. Try again:\n");
-                            Console.ResetColor();
-                            pr = false;
-                        }
-                    } while (!pr);
                     //Add Task
                     switch (TypeTask)
                     {
@@ -167,44 +231,11 @@ namespace Library
                 LogMsg.WriteLog(e.Message);
             }
         }
-        /// <summary>
-        /// Add Task
-        /// </summary>
-        public static void ChangeTask()
-        {
-            if (TaskRepository.Tasks.Count > 0)
-            {
-                int _nomerTask;
-                int index = 1;
 
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
-                //show tasks
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                foreach (var task in TaskRepository.Tasks)
-                {
-                    Console.WriteLine($"{index++,-8}{task.Id} \t[{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType().Name}");
-                }
-
-                do
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.Write("\t Write task numbers:");
-                } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
-
-                //int index = SomeTask.FindIndex(c => c.Name == SomeVariable);
-                AddTask(_nomerTask--);
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("\tTask repository is empty!");
-            }
-        }
         /// <summary>
         /// Show task
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">index for showing one task</param>
         private static void ShowTask(int index = -1)
         {
             if (index == -1)
@@ -253,8 +284,6 @@ namespace Library
         /// <summary>
         /// Jub with menu
         /// </summary>
-        /// <param name="MQuit"></param>
-        /// <param name="ChoiceNomMenu"></param>
         public static void JobWithMenu()
         {
 
@@ -353,8 +382,8 @@ namespace Library
                             LogMsg.WriteLog(e.Message);
                         }
 
-                        Sprint++;
-                        FileHelper.Save(Sprint);
+                        _sprint++;
+                        FileHelper.Save(_sprint);
 
                         ShowMenuInConsole();
                         break;
@@ -409,6 +438,7 @@ namespace Library
                 }
             }
         }
+
         /// <summary>
         /// History of stories
         /// </summary>
