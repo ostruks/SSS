@@ -8,6 +8,6 @@ namespace Library.Interfaces
 {
     public interface IReadFile
     {
-        void Read();
+        string[] Read();
     }
 }

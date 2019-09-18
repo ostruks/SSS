@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReadFile.cs" />
+    <Compile Include="SaveFile.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Interfaces\IReadFile.cs" />

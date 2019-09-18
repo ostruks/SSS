@@ -8,6 +8,6 @@ namespace Library.Interfaces
 {
     public interface ISaveFile
     {
-        void Save();
+        void Save(int Sprint);
     }
 }
