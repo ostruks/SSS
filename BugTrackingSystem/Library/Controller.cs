@@ -18,6 +18,11 @@ namespace Library
         private static int _sprint = 0;
 
         /// <summary>
+        /// For saving simulation result in file
+        /// </summary>
+        private static SaveFile _save = new SaveFile();
+
+        /// <summary>
         /// enum for using menu
         /// </summary>
         public enum MenuItem
@@ -53,8 +58,8 @@ namespace Library
         {
             foreach (MenuItem item in Enum.GetValues(typeof(MenuItem)))
             {
-                if (item == 0) Console.ForegroundColor = ConsoleColor.DarkYellow;
-                else Console.ForegroundColor = ConsoleColor.Cyan;
+                if (item == 0) Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
+                else Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuItems;
                 Console.WriteLine(item.GetDescription());
             }
         }
@@ -95,10 +100,10 @@ namespace Library
                 int _nomerTask;
                 int index = 1;
 
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
                 System.Console.WriteLine($"[index]\tId\t\t\t\t\tName\t\tPrioritet\tComplexityTask\tType_Task");
                 //show tasks
-                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuItems;
                 foreach (var task in TaskRepository.Tasks)
                 {
                     Console.WriteLine($"{index++,-8}{task.Id} \t[{task.Name}]\t{task.Priority,-5}\t\t{task.Complexity,-10}\t{task.GetType().Name}");
@@ -106,7 +111,7 @@ namespace Library
 
                 do
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
                     Console.Write("\t Write task numbers:");
                 } while (!Int32.TryParse(Console.ReadLine(), out _nomerTask));
 
@@ -115,7 +120,7 @@ namespace Library
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                 Console.Write("\tTask repository is empty!");
             }
         }
@@ -134,19 +139,19 @@ namespace Library
                 bool pr = false;
 
                 //Name
-                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuItems;
                 System.Console.Write("\t Write Name Task: ");
                 NameTask = System.Console.ReadLine();
 
                 //Complexity
                 do
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuItems;
                     Console.Write("\t Write Complexity Task(from 1 to 5): ");
                     pr = int.TryParse(Console.ReadLine(), out ComplexityTask);
                     if (!(ComplexityTask >= 1 && ComplexityTask <= 5))
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                         Console.Write("\t Write Complexity only from 1 to 5\tInvalid input. Try again:\n");
                         Console.ResetColor();
                         pr = false;
@@ -156,12 +161,12 @@ namespace Library
                 //Priority
                 do
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuItems;
                     Console.Write("\t Write Priority Task(from 1 to 5): ");
                     pr = int.TryParse(Console.ReadLine(), out Priority);
                     if (!(Priority >= 1 && Priority <= 5))
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                         Console.Write("\t Write Priority only from 1 to 5\tInvalid input. Try again:\n");
                         Console.ResetColor();
                         pr = false;
@@ -171,12 +176,12 @@ namespace Library
                 //Type
                 do
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuItems;
                     Console.Write("\t Write Type Task(Bag:1, Task:2, Technical debt: 3): ");
                     pr = int.TryParse(System.Console.ReadLine(), out TypeTask);
                     if (!(TypeTask >= 1 && TypeTask <= 3))
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                         Console.Write("\t Write Type only 1 or 2 or 3\tInvalid input. Try again:\n");
                         Console.ResetColor();
                         pr = false;
@@ -201,7 +206,7 @@ namespace Library
                         default:
                             break;
                     }
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
                     Console.WriteLine("\tTask successfully changed");
                 }
                 else
@@ -221,13 +226,13 @@ namespace Library
                         default:
                             break;
                     }
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                     Console.WriteLine("\tSuccessfully Task Add");
                 }
             }
             catch (Exception e)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                 Console.WriteLine("\tError. Something went wrong!)", e.Message);
                 LogMsg.WriteLog(e.Message);
             }
@@ -245,7 +250,7 @@ namespace Library
                 {
                     if (TaskRepository.Tasks.Count > 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                         for (int i = 0; i < TaskRepository.Tasks.Count; i++)
                         {
                             Console.WriteLine($"[{i + 1}]: {TaskRepository.Tasks[i].Display()}");
@@ -253,13 +258,13 @@ namespace Library
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                         Console.WriteLine("\tIs no tasks!");
                     }
                 }
                 catch (Exception e)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                     Console.WriteLine("\tError. Something went wrong!)", e.Message);
                     LogMsg.WriteLog(e.Message);
                 }
@@ -269,13 +274,13 @@ namespace Library
                 try
                 {
                     index--;
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                     Console.WriteLine($"[{index + 1}]: {TaskRepository.Tasks[index].Display()}");
 
                 }
                 catch (Exception e)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                     Console.WriteLine("\tError. Something went wrong!)", e.Message);
                     LogMsg.WriteLog(e.Message);
                 }
@@ -298,7 +303,7 @@ namespace Library
 
                 if (!Int32.TryParse(Console.ReadLine(), out choiceNomMenu) || !(choiceNomMenu >= 1 && choiceNomMenu <= 10))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                     Console.WriteLine("\t Invalid input. Try again:");
                     ShowMenuInConsole();
                     continue;
@@ -307,7 +312,7 @@ namespace Library
                 switch (choiceNomMenu)
                 {
                     case (int)MenuItem.AddTask:
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
                         Console.WriteLine("\t Insert the Task you want to add:");
 
                         AddTask();
@@ -323,7 +328,7 @@ namespace Library
 
                         break;
                     case 3: //show one task
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
                         Console.WriteLine("\t Show Task details");
                         ShowTask();
 
@@ -331,7 +336,7 @@ namespace Library
                         bool pr = false;
                         do
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                             Console.Write("\t show index who show: ");
                             pr = int.TryParse(Console.ReadLine(), out index);
                         } while (!pr);
@@ -341,7 +346,7 @@ namespace Library
 
                         break;
                     case 4: //show all tasks
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
 
                         ShowTask();
                         ShowMenuInConsole();
@@ -355,44 +360,44 @@ namespace Library
                                 int sim = 0;
                                 do
                                 {
-                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
                                     Console.Write("\t Choise Simulation: simulation - 1, random simulation - 2: ");
                                     pr = int.TryParse(Console.ReadLine(), out sim);
                                 } while (!pr);
                                 switch (sim)
                                 {
                                     case 1:
-                                        Console.ForegroundColor = ConsoleColor.Green;
+                                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                                         Console.WriteLine("\tSimulation started!");
                                         SimulationTasks.StartSimulation();
                                         break;
                                     case 2:
-                                        Console.ForegroundColor = ConsoleColor.Green;
+                                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                                         Console.WriteLine("\tSimulation started!");
                                         SimulationTasks.StartRandomSimulation();
                                         break;
                                 }
-                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
                                 Console.WriteLine("\tSimulation end!");
                             }
                         }
                         catch (Exception e)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                             Console.WriteLine("\tError. Something went wrong!)", e.Message);
                             LogMsg.WriteLog(e.Message);
                         }
 
                         _sprint++;
-                        FileHelper.Save(_sprint);
+                        _save.SaveTxt(_sprint);
 
                         ShowMenuInConsole();
                         break;
                     case 6: // Simulation result
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuNameColor;
                         if (SimulationTasks.ResultSimulation.Count == 0)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                             Console.WriteLine("\tIs no finished simulations!");
                         }
                         else
@@ -406,7 +411,7 @@ namespace Library
                         ShowMenuInConsole();
                         break;
                     case 7: //History tasks
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.Info;
                         int i = 1;
                         foreach (var a in History())
                         {
@@ -418,7 +423,7 @@ namespace Library
                         break;
                     case 8: //Clear Repository
                         TaskRepository.Tasks.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                         Console.WriteLine("Repository cleared!");
 
                         ShowMenuInConsole();
@@ -430,7 +435,7 @@ namespace Library
                         break;
                     case 10:
                         //void WriteHistoryTasks
-                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.MenuItems;
                         Console.WriteLine("\t Quitting...");
                         mQuit = true;
                         break;
@@ -449,7 +454,7 @@ namespace Library
             List<BaseTask> tasks = new List<BaseTask>();
             if (File.Exists("tasks.txt"))
             {
-                foreach (string taskList in FileHelper.Read())
+                foreach (string taskList in new ReadFile().Read())
                 {
                     String[] list = taskList.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -484,7 +489,7 @@ namespace Library
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = (ConsoleColor)ConsoleColors.EnumConsoleColors.ErrorOrOther;
                 Console.WriteLine("File is not exist!");
             }
             return tasks;

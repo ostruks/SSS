@@ -64,10 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReadFile.cs" />
-    <Compile Include="SaveFile.cs" />
+    <Compile Include="Helpers\ConsoleColors.cs" />
+    <Compile Include="Helpers\ReadFile.cs" />
+    <Compile Include="Helpers\SaveFile.cs" />
     <Compile Include="Controller.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Interfaces\IReadFile.cs" />
     <Compile Include="Interfaces\ISaveFile.cs" />
     <Compile Include="Log\LogMsg.cs" />

@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Library.Interfaces;
 using Library.Tasks;
 using Newtonsoft.Json;
 
-namespace Library
+namespace Library.Helpers
 {
     public class SaveFile : ISaveFile
-    {        
+    {
+        private ReadFile _read = new ReadFile();
         public void SaveTxt(int Sprint)
         {
-            string read = "";
+            string tasksFromFile = "";
             if (File.Exists("Tasks.txt"))
             {
-                read = File.ReadAllText("Tasks.txt");
-                FileWrite(read, Sprint);
+                tasksFromFile = _read.Read("Tasks.txt");
+                FileWrite(tasksFromFile, Sprint);
             }
             else
             {
                 Sprint++;
-                FileWrite(read, Sprint);
+                FileWrite(tasksFromFile, Sprint);
             }
         }
 
